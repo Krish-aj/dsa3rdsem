@@ -24,7 +24,7 @@ void findandreplace(char *str,const char *pat,const char *rep ){
     int index=checkpattern(str,pat);
 
     while(index != -1){
-        for(int i=strlength;i>=index+patlength;i--){
+        for(int i=index+patlength;str[i-1]1='\0';i++){
             str[i+replength-patlength]=str[i];
         }
         for(int i=0;i<replength;i++){
