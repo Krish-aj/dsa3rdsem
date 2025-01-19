@@ -1,0 +1,144 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define max 30
+
+struct sll{
+    int data;
+    struct sll *next;
+};
+
+typedef struct sll node;
+node *head=NULL;
+
+node *create(){
+    node *newnode=(node*)malloc(sizeof(node));
+    if(!newnode){
+
+        printf("mem alloc failed\n");
+        exit(1);
+    }else{
+        printf("enter data\n");
+        scanf("%d",&newnode->data);
+
+        newnode->next=NULL;
+    }
+    return newnode;
+
+}
+
+void in_front(){
+
+    node *newnode;
+    newnode=create();
+    if(head==NULL){
+        head=newnode;
+        newnode->next=head;
+    }
+    node* temp=head;
+    while(temp->next!=head){
+        temp=temp->next;
+    }
+    temp->next=newnode;
+    newnode->next=head;
+    head=newnode;
+}
+
+void in_rear(){
+    node *newnode;
+    newnode=create();
+    if(head==NULL){
+        head=newnode;
+        newnode->next=head;
+    }
+    
+    node *temp=head;
+    while(temp->next!=head){
+
+        temp=temp->next;
+    }
+    temp->next=newnode;
+    newnode->next=head;
+
+}
+
+void del_front(){
+    if(head==NULL){
+        printf("sll empty\n");
+    }
+    if(head->next=head){
+        free(head);
+        head=NULL;
+    }
+    node* temp=head;
+    node* last=head;
+    while(last->next!=head){
+        last=last->next;
+    }
+    head=head->next;
+    last->next=head;
+    free(temp);
+}
+
+void del_rear(){
+    node  *temp=head,*prev=NULL;
+    if(head==NULL){
+        printf("sll empty\n");
+        return;
+    }
+    if(head->next==head){
+        free(head);
+        head=NULL;
+        return;
+    }
+    else{
+        while(temp->next!=head){
+            prev=temp;
+            temp=temp->next;
+        }
+        prev->next=head;
+
+    }
+    free(temp);
+}
+
+void display(){
+
+    if(head==NULL){
+        printf("sll empty\n");
+    }else{
+        node *temp=head;
+        printf("sll contents are \n");
+        do{
+            printf(" %d\n",temp->data);
+            
+            
+            temp=temp->next;
+        }while(temp!=head);
+      
+    }
+
+}
+
+int main(){
+    int n,choice,i;
+    while(1){
+        printf("1.insert front\n2.insert rear\n3.delete front\n4.delete rear\n5.display\n6.exit\n");
+        printf("enter choice: ");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1: in_front();break;
+                
+                
+            case 2:in_rear();
+                break;
+            case 3:del_front();
+                break;
+            case 4:del_rear();
+                break;
+            case 5: display();
+                break;
+            case 6:return 0;
+            default:printf("enter valid choice");
+        }
+    }
+}
